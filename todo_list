@@ -1,0 +1,54 @@
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({'task': task, 'completed': False})
+
+    def remove_task(self, task_number):
+        try:
+            del self.tasks[task_number - 1]
+        except IndexError:
+            print("Invalid task number.")
+
+    def mark_completed(self, task_number):
+        try:
+            self.tasks[task_number - 1]['completed'] = True
+        except IndexError:
+            print("Invalid task number.")
+
+    def display_tasks(self):
+        for i, task in enumerate(self.tasks, start=1):
+            status = "Completed" if task['completed'] else "Not Completed"
+            print(f"{i}. {task['task']} - {status}")
+
+def main():
+    todo_list = TodoList()
+
+    while True:
+        print("\n1. Add Task")
+        print("2. Remove Task")
+        print("3. Mark Task as Completed")
+        print("4. Display Tasks")
+        print("5. Quit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            task = input("Enter a task: ")
+            todo_list.add_task(task)
+        elif choice == "2":
+            task_number = int(input("Enter the task number to remove: "))
+            todo_list.remove_task(task_number)
+        elif choice == "3":
+            task_number = int(input("Enter the task number to mark as completed: "))
+            todo_list.mark_completed(task_number)
+        elif choice == "4":
+            todo_list.display_tasks()
+        elif choice == "5":
+            break
+        else:
+            print("Invalid option.")
+
+if __name__ == "__main__":
+    main()
